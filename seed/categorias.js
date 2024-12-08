@@ -1,19 +1,27 @@
 const categorias = [
     {
-        nombre: 'Casa'
+      nombre: 'Casa'
     },
     {
-        nombre: 'Departamento'
+      nombre: 'Departamento'
     },
     {
-        nombre: 'Bodega'
+      nombre: 'Bodega'
     },
     {
-        nombre: 'Terreno'
+      nombre: 'Terreno'
     },
     {
-        nombre: 'Cabaña'
+      nombre: 'Cabaña'
+    },
+    {
+      nombre: 'Local Comercial' // Nueva categoría
+    },
+    {
+      nombre: 'Establecimiento',
+      establecimiento: true 
     }
-]
-
-export default categorias
+  ];
+  
+  export default categorias;
+  
