@@ -1,12 +1,12 @@
-import { DataTypes } from 'sequelize'
-import db from '../config/db.js'
+import { DataTypes } from 'sequelize';
+import db from '../config/db.js';
 
 const Propiedad = db.define('propiedades', {
     id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        allowNull: false
     },
     titulo: {
         type: DataTypes.STRING(100),
@@ -33,24 +33,47 @@ const Propiedad = db.define('propiedades', {
         allowNull: false
     },
     lat: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     lng: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     imagen: {
-        type: DataTypes.STRING,
+        type: DataTypes.STRING(255),
         allowNull: false
     },
     publicado: {
         type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: false
+        defaultValue: false,
+        allowNull: false
+    },
+    tipo_establecimiento: {
+        type: DataTypes.ENUM('venta', 'renta'),
+        defaultValue: 'venta',
+        allowNull: false
+    },
+    precioID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    categoriaID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    usuarioID: {
+        type: DataTypes.INTEGER,
+        allowNull: false
+    },
+    createdAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW
     }
-
-
 });
 
-export default Propiedad
+export default Propiedad;
