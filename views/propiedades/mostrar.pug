@@ -2,8 +2,22 @@ extends ../layout/app
 
 block styles
     link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
-
-block contenido 
+    style.
+        .rounded-full {
+            border-radius: 9999px;
+        }
+        .vendor-img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+        }
+        .vendor-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+block contenido
+    
     div(class="py-5")
         h1(id="titulo" class="text-4xl my-10 font-extrabold text-center")= propiedad.titulo
 
@@ -17,8 +31,20 @@ block contenido
 
                 div(class="px-5 py-10 space-y-5")
                     p= propiedad.descripcion
+                    h2(class="text-2xl leading-6 font-bold text-gray-900 ") Informacion del vendedor
+                    div(class="vendor-info")
+                        if usuario.foto
+                            img(src=`/uploads/${usuario.foto}`, alt="Foto del vendedor" class="vendor-img rounded-full")
+                        else
+                            img(src="/path/to/default-image.jpg", alt="Foto por defecto" class="vendor-img rounded-full")
+                        
+                        p(class="text-gray-600 font-bold text-xs") Alias del vendedor 
+                            span(class="text-gray-800 block text-lg")= usuario.alias
+                        
                     h2(class="text-2xl leading-6 font-bold text-gray-900 ") Informacion propiedad
-
+                    div(class="grid grid-cols-1 md:grid-cols-2")
+                        p(class="text-gray-600 font-bold text-xs") Este establecimiento es para
+                            span(class="text-gray-800 block text-lg")= propiedad.tipo_establecimiento
                     div(class="grid grid-cols-1 md:grid-cols-2")
                         p(class="text-gray-600 font-bold text-xs") WC
                             span(class="text-gray-800 block text-lg")= propiedad.wc
@@ -79,5 +105,6 @@ block contenido
 
 block scripts 
     script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
-    script(src="/js/mostrarMapa.js") 
+    script(src="/js/mostrarMapa.js")
+
     

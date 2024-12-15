@@ -97,5 +97,50 @@ const emailOlvidePassword = async (datos) => {
     ]
   });
 };
+const emailImagenGuardada = async (datos) => {
+  const transport = nodemailer.createTransport({
+    host: process.env.EMAIL_HOST,
+    port: process.env.EMAIL_PORT,
+    auth: {
+      user: process.env.EMAIL_USER,
+      pass: process.env.EMAIL_PASS
+    }
+  });
 
-export { emailRegistro, emailOlvidePassword };
+  const { email, nombre } = datos;
+
+  // Enviar el correo
+  await transport.sendMail({
+    from: 'BienesRaices.com <no-reply@bienesraices.com>',
+    to: email,
+    subject: '¡Tu imagen ha sido guardada con éxito!',
+    text: 'Notificación de guardado de imagen',
+    html: `
+      <div style="font-family: 'Arial', sans-serif; color: #000000; background-color: #FDE4E4; padding: 20px; border-radius: 10px; border: 1px solid #E87C7C; text-align: center;">
+        <img src="cid:logo" alt="Logo BienesRaices" style="width: 20%; height: auto; margin-bottom: 20px; display: block; margin-left: auto; margin-right: auto;">
+        <h1 style="color: #D15454; text-align: center;">¡Hola, ${nombre}!</h1>
+        <p>Nos complace informarte que tu imagen de perfil ha sido guardada correctamente en nuestra plataforma.</p>
+        <p>Desde ahora, podrás visualizar tu imagen de perfil en tu cuenta de BienesRaices.com. Si deseas realizar cambios o actualizar tu información, puedes hacerlo en cualquier momento desde tu panel de usuario.</p>
+        <p>Recuerda que mantener tu perfil actualizado ayuda a que tus interacciones en la plataforma sean más efectivas.</p>
+        <p>Si tienes alguna pregunta o necesitas asistencia, no dudes en contactarnos. Nuestro equipo de soporte está aquí para ayudarte.</p>
+        <p style="margin-top: 20px;">Gracias por confiar en <strong>BienesRaices.com</strong>,</p>
+        <p>El equipo de trabajo de BienesRaices.com</p>
+        <img src="cid:firma" alt="Firma del equipo" style="width: 25%; height: auto; margin-top: 20px; display: block; margin-left: auto; margin-right: auto;">
+      </div>
+    `,
+    attachments: [
+      {
+        filename: 'logo.jpg',
+        path: 'public/imgpublic/logo.jpg',
+        cid: 'logo'
+      },
+      {
+        filename: 'firma.png',
+        path: 'public/imgpublic/firma.png',
+        cid: 'firma'
+      }
+    ]
+  });
+};
+
+export { emailRegistro, emailOlvidePassword,emailImagenGuardada };
