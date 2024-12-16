@@ -2,7 +2,7 @@ import { check, validationResult } from 'express-validator'
 import bcrypt from 'bcrypt'
 import Usuario from '../models/Usuario.js'
 import { generateID, generarJWT } from '../helpers/tokens.js'
-import { emailRegistro, emailOlvidePassword } from '../helpers/emails.js'
+import { emailRegistro, emailOlvidePassword,emailImagenGuardada } from '../helpers/emails.js'
 import moment from 'moment';
 
 
@@ -336,7 +336,7 @@ const subirFotoPerfil = async (req, res) => {
     }
 
         //Enviar email de confirmacion
-        emailRegistro({
+        emailImagenGuardada({
             nombre: usuario.nombre,
             email: usuario.email,
             token: usuario.token
@@ -370,7 +370,7 @@ const almacenarFotoPerfil = async (req, res) => {
         await usuario.save();
 
         // Enviar el correo de confirmación
-        emailRegistro({
+        emailImagenGuardada({
             nombre: usuario.nombre,
             email: usuario.email,
             token: usuario.token,

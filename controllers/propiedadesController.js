@@ -287,7 +287,8 @@ const mostrarPropiedad = async (req, res) => {
     const propiedad = await Propiedad.findByPk(id, {
         include: [
             { model: Precio, as: 'precio' },
-            { model: Categoria, as: 'categoria' }
+            { model: Categoria, as: 'categoria' },
+            { model: Usuario, as: 'usuario' }
         ]
     });
 
@@ -299,10 +300,10 @@ const mostrarPropiedad = async (req, res) => {
         propiedad,
         pagina: propiedad.titulo,
         csrfToken: req.csrfToken(),
-        usuario: req.usuario,
         esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioID)
     });
 };
+
 
 const enviarMensaje = async (req, res) => {
     const { id } = req.params;
