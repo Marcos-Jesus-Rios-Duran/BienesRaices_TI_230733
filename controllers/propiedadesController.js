@@ -300,6 +300,7 @@ const mostrarPropiedad = async (req, res) => {
         propiedad,
         pagina: propiedad.titulo,
         csrfToken: req.csrfToken(),
+        usuario: req.usuario,
         esVendedor: esVendedor(req.usuario?.id, propiedad.usuarioID)
     });
 };
@@ -310,7 +311,8 @@ const enviarMensaje = async (req, res) => {
     const propiedad = await Propiedad.findByPk(id, {
         include: [
             { model: Precio, as: 'precio' },
-            { model: Categoria, as: 'categoria' }
+            { model: Categoria, as: 'categoria' },
+            {model:Usuario, as:'usuario'}
         ]
     });
 
@@ -349,17 +351,17 @@ const enviarMensaje = async (req, res) => {
 const verMensajes = async (req, res) => {
     const { id } = req.params
 
-    //validar que la propiedad exista
     const propiedad = await Propiedad.findByPk(id, {
         include: [
-            {
-                model: Mensaje, as: 'mensajes',
+                {model: Usuario, as: 'usuario'},
+                {model: Mensaje, as: 'mensajes',
                 include: [
                     { model: Usuario.scope('eliminarPassword'), as: 'usuario' }
                 ]
             },
         ],
     })
+
 
     if (!propiedad) {
         return res.redirect('/mis-propiedades')
@@ -372,7 +374,9 @@ const verMensajes = async (req, res) => {
 
     res.render('propiedades/mensajes', {
         pagina: 'Mensajes',
+        csrfToken: req.csrfToken(),
         mensajes: propiedad.mensajes,
+        usuario: propiedad.usuario,
         formatearFecha
     })
 }
