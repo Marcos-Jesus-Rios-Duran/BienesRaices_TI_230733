@@ -1,11 +1,19 @@
-div(class="bg-white shadow rounded-lg border border-light_blue")
-    img(class="object-cover h-72 w-full"  src=`/uploads/${propiedad.imagen}` alt=`imagen de la propiedad ${propiedad.titulo}`)
-    div(class="p-5 space-y-5")
-        h1(class="text-xl font-bold text-black")= propiedad.titulo
-        p(class="text-sm text-gray-600") Habitaciones:  
-            span(class="text-gray-800 font-bold")= propiedad.habitaciones
-        p(class="text-sm text-gray-600") WC:  
-            span(class="text-gray-800 font-bold")= propiedad.wc
-        p(class="text-sm text-gray-600") Precio:  
-            span(class="text-gray-800 font-bold")= propiedad.precio.nombre 
-        a(href=`/propiedad/${propiedad.id}` class="bg-light_blue w-full text-center block font-bold text-white p-2 uppercase rounded hover:bg-greenish") Ver Propiedad
+div.card(class="border border-gray-200 rounded-lg shadow-md p-4 hover:shadow-lg focus:shadow-lg transition-transform transform hover:scale-105 focus:scale-105")
+    div.flex.items-center
+        if propiedad.usuario.foto
+            img(src=`/uploads/${propiedad.usuario.foto}` alt="Foto del vendedor" class="w-10 h-10 rounded-full mr-4 object-cover")
+        else
+            img(src="/path/to/default-image.jpg" alt="Foto por defecto" class="w-10 h-10 rounded-full mr-4 object-cover")
+        
+        div
+            p.text-gray-600.font-bold.text-sm= propiedad.usuario.alias
+            p.text-gray-500.text-xs= propiedad.tipo_establecimiento
+
+    img(src=`/uploads/${propiedad.imagen}` alt=`Imagen de la propiedad ${propiedad.titulo}` class="w-full h-48 rounded-lg object-cover mt-4")
+
+    div.mt-4
+        h2.text-lg.font-bold.text-gray-800= propiedad.titulo
+        p.text-gray-600.text-sm.mt-2= propiedad.descripcion.substring(0, 100) + '...'
+        p.text-gray-900.text-sm.mt-2.font-bold Precio: 
+            span.text-gray-800= propiedad.precio.nombre
+        a(href=`/propiedad/${propiedad.id}` class="text-indigo-600 text-sm mt-4 inline-block") Ver más

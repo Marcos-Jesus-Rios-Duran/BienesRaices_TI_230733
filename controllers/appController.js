@@ -1,8 +1,7 @@
-import { Precio, Categoria, Propiedad } from "../models/index.js"
+import { Precio, Categoria, Propiedad,Usuario} from "../models/index.js"
 import { Sequelize } from 'sequelize'
 
 const inicio = async (req, res) => {
-
     const [categorias, precios, casas, departamentos] = await Promise.all([
         Categoria.findAll({ raw: true }),
         Precio.findAll({ raw: true }),
@@ -15,6 +14,10 @@ const inicio = async (req, res) => {
                 {
                     model: Precio,
                     as: 'precio'
+                },
+                {
+                    model: Usuario,
+                    as: 'usuario'
                 }
             ],
             order: [
@@ -30,13 +33,17 @@ const inicio = async (req, res) => {
                 {
                     model: Precio,
                     as: 'precio'
+                },
+                {
+                    model: Usuario,
+                    as: 'usuario'
                 }
             ],
             order: [
                 ['createdAt', 'DESC']
             ]
         })
-    ])
+    ]);
 
     res.render('inicio', {
         pagina: 'Inicio',
@@ -45,8 +52,10 @@ const inicio = async (req, res) => {
         casas,
         departamentos,
         csrfToken: req.csrfToken()
-    })
+    });
 }
+
+
 
 const categoria = async (req, res) => {
 
