@@ -66,8 +66,7 @@ block contenido
                             label.block.text-sm.uppercase.text-gray-500.mb-3.font-bold(for="wc") WC
                             select#wc.w-full.px-3.py-2.border.border-gray-300.rounded-md.placeholder-gray-400(name="wc")     
                                 option(value="") - Seleccione -
-                                option(value="NA" selected= datos.wc ? datos.wc == 'NA' ? true : false : null) No aplica
-                                - var n = 1;
+                                - var n = 0;
                                 while n < 5
                                     option(value=n selected= datos.wc ? datos.wc == n ? true : false : null) #{n++}
 
