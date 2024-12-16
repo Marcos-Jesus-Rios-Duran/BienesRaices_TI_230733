@@ -13,7 +13,7 @@ block styles
         }
         .vendor-info {
             display: flex;
-            align-items: center;
+            align-items: center; 
             gap: 1rem;
         }
         .property-img {
@@ -21,6 +21,13 @@ block styles
             height: auto; /* Mantener la proporción de la imagen */
             max-height: 400px; /* Tamaño máximo para la altura */
             object-fit: cover;
+        }
+
+        /* Estilos para mejorar el enfoque */
+        textarea:focus, input[type="submit"]:focus {
+            outline: none; /* Eliminar el contorno por defecto */
+            box-shadow: 0 0 5px 2px rgba(59, 130, 246, 0.75); /* Sombra azul alrededor del elemento */
+            transform: scale(1.02); /* Ampliar ligeramente el elemento */
         }
 
 block contenido
@@ -77,24 +84,23 @@ block contenido
                         span(id="calle" class="text-gray-800 block text-lg")= propiedad.calle  
                     if !esVendedor
                         h3(class="text-2xl text-center my-10 font-extrabold text-gray-900") Vendedor
-                        if enviado 
-                            p(class="p-2 text-center bg-green-100 text-green-600 uppercase font-bold") Mensaje Enviado Correctamente
                         if usuario
+                            p Puedes Enviar un mensaje 
                             if errores 
                                 div(class="max-w-md mx-auto my-10")
                                     each error in errores
-                                        p.bg-red-600.text-white.uppercase.text-xs.text-center.p-2.mb-1.font-bold= error.msg
+                                        p.bg-pink.text-white.uppercase.text-xs.text-center.p-2.mb-1.font-bold= error.msg
                             form(method="POST" action="") 
                                 input(type="hidden" name="_csrf" value= csrfToken)
                                 div(class="space-y-5")
                                     label(for="mensaje") Mensaje 
                                     
                                     textarea(id="mensaje", name="mensaje" ,class="w-full px-2 py-2 border border-gray-300 rounded-lg shadow placeholder-gray-400" ,placeholder="Coloca tu mensaje aqui")  
-                                    input(type="submit" value="Enviar Mensaje" class="bg-indigo-600 text-white font-bold uppercase text-sm w-full p-2 cursor-pointer")
+                                    input( type="submit" value="Enviar Mensaje" class="bg-light_blue text-white font-bold uppercase text-sm w-full p-2 cursor-pointer hover:bg-greenish focus:scale-110 focus:ring-2 focus:ring-blue-500")
                         else 
                             div(class="flex flex-col items-center justify-center gap-2")
-                                p(class="text-center") Si deseas contactar al vendedor 
+                                p(class="text-center") Si deseas contactar al vendedor debes crear una cuenta
                                 a(class="text-indigo-600" href="/auth/crear-cuenta")
 block scripts 
     script(src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js")
-    script(src="/js/mostrarMapa.js") 
+    script(src="/js/mostrarMapa.js")
